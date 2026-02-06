@@ -67,13 +67,13 @@ for path in start stop status; do
   if [ "$RES_ID" == "None" ] || [ -z "$RES_ID" ]; then
       echo "Creating route /$path..."
       RES_ID=$($awsonline apigateway create-resource --rest-api-id $API_ID --parent-id $ROOT_ID --path-part $path --query 'id' --output text)
-      AWS_PAGER="" $awsonline apigateway put-method --rest-api-id $API_ID --resource-id $RES_ID --http-method POST --authorization-type NONE
+      AWS_PAGER="" $awsonline apigateway put-method --rest-api-id $API_ID --resource-id $RES_ID --http-method ANY --authorization-type NONE
       AWS_PAGER="" $awsonline apigateway put-integration \
         --rest-api-id $API_ID \
         --resource-id $RES_ID \
-        --http-method POST \
+        --http-method ANY \
         --type AWS_PROXY \
-        --integration-http-method POST \
+        --integration-http-method ANY \
         --uri arn:aws:apigateway:$REGION:lambda:path/2015-03-31/functions/arn:aws:lambda:$REGION:000000000000:function:$LAMBDA_NAME/invocations
   else
       echo "Route /$path already exists."
