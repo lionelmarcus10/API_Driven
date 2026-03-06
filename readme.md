@@ -70,4 +70,13 @@ awsonline ec2 describe-instances --query 'Reservations[].Instances[].{ID:Instanc
 
 ```bash
 chmod +x deploy_lambda_and_gateway.sh
+./deploy_lambda_and_gateway.sh
+```
+
+
+## Deploy lambda and api gateway
+
+```bash
+chmod +x delete_lambda_and_agw.sh
+./delete_lambda_and_agw.sh
 ```
